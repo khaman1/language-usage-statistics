@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from api.library.redis.core import *
-
+from api.core.constants import REDIS_HOSTNAME,REDIS_PORT
 class APIBase:
     prefix          = ''
     redis           = ''
@@ -22,7 +22,7 @@ class APIBase:
 
 
     def init_redis(self):
-        self.redis              = Redis('localhost',6379)
+        self.redis              = Redis(REDIS_HOSTNAME, REDIS_PORT)
 
     def process_request(self):
         pass

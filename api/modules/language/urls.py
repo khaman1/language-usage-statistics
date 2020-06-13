@@ -3,5 +3,5 @@ from django.urls import path,include
 from .views import api_show_language_usage
 
 urlpatterns = [
-    path('', api_show_language_usage),
+    path('research/', api_show_language_usage),
 ]

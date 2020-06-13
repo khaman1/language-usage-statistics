@@ -7,14 +7,28 @@
     <meta name="author" content="colorlib.com">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
     <link href="{% static 'frontend/search/css/main.css' %}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="{% static 'frontend/search/css/table.css' %}" rel="stylesheet" />
     <title>Language-usage Statistics for Websites</title>
     <style>
+      #histogram-chart {
+        width: 90%;
+        height: 500px;
+      }
       
+      .d-center {
+        display: flex;
+        justify-content: center;
+        max-height:455px;
+      }
+
+      td {
+        text-align: center;
+        width: 12%;
+      }
     </style>
   </head>
   <body>
-    <div class="s130 container">
+    <div class="s130">
       <form>
         <div class="inner-form">
           <div class="input-field first-wrap">
@@ -33,6 +47,59 @@
       </form>
     </div>
     
-    
+    <div class='d-center'>
+      <div class="table100 ver1 m-b-110" style="width:800px;">
+        <div class="table100-head">
+          <table>
+            <thead>
+              <tr>
+                <th class="">WORD</th>
+                <th class="">COUNT</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <div class="table100-body">
+          <table style="width: 102%;">
+            <tbody id='table-content' >
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </body>
+  <script>
+    document.getElementsByClassName('btn-search')[0].addEventListener('click', function (event) {
+      search();
+    });
+
+    function search(){
+      fetch('/api/research/?url='+document.getElementById('search').value)
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          //
+          content = ''
+          for(i=0; i<data['histogram'].length;i++)
+          {
+            pair=data['histogram'][i];
+            content+=
+              `
+                <tr>
+                  <td>${pair['word']}</td>
+                  <td>${pair['count']}</td>
+                </tr>
+              `
+          }
+
+          document.getElementById( 'table-content' ).innerHTML        = content;
+        })
+        .catch(err => {
+          console.log("Something error here!")
+        })
+    }
+    
+  </script>
 </html>
