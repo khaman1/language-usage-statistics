@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path,include
+from .views import api_show_language_usage
 
 urlpatterns = [
-    path('', include('api.modules.language.urls')),
+    path('', api_show_language_usage),
 ]

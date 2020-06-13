@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from home.library.redis.core_library import *
+from api.library.redis.core import *
 
 class APIBase:
     prefix          = ''
@@ -10,9 +10,9 @@ class APIBase:
     context         = {}
     DEBUG           = 0
     
-    def __init__(self,request=0,enable_redis=0):
+    def __init__(self,request=0,enable_redis=0,suffix_redis_key=''):
         if enable_redis:
-            self.prefix         = type(self).__name__ + ',' + str(request)
+            self.prefix         = type(self).__name__ + ',' + str(request) + suffix_redis_key
             self.enable_redis   = enable_redis
             self.init_redis()
 
@@ -22,7 +22,7 @@ class APIBase:
 
 
     def init_redis(self):
-        self.redis          = Redis('localhost',6379)
+        self.redis              = Redis('localhost',6379)
 
     def process_request(self):
         pass

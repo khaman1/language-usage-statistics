@@ -1,0 +1,5 @@
+REDIS_EXPIRATION_LEVEL_1                          = 60
+REDIS_EXPIRATION_LEVEL_2                          = 600
+REDIS_EXPIRATION_LEVEL_3                          = 3600
+REDIS_EXPIRATION_LEVEL_4                          = 7200
+REDIS_EXPIRATION_LEVEL_5                          = 86400
