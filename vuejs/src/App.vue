@@ -16,7 +16,6 @@ export default {
 </script>
 
 <style>
-
 @import './assets/static/css/main.css';
 @import './assets/static/css/table.css';
 </style>

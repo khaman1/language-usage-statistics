@@ -1,6 +1,6 @@
 <template>
   <div class="hello s130">
-    <form v-on:submit.prevent="startSearch">
+    <form v-on:submit.once="startSearch">
       <div class="inner-form">
         <div class="input-field first-wrap">
           <div class="svg-wrapper">
@@ -50,9 +50,21 @@ export default {
   methods: {
     startSearch(){
       axios
-      .get('https://cors-anywhere.herokuapp.com/http://139.180.221.92/api/research/?url=google.com')
+      .get('http://127.0.0.1:8000/api/research/?url='+document.getElementById("search").value)
       .then(function(response){
-        console.log(response);
+        var data = response.data
+
+        var content = ''
+        for(var i=0; i<data['histogram'].length;i++)
+            content+=
+            `
+                <tr>
+                <td>${data['histogram'][i]['word']}</td>
+                <td>${data['histogram'][i]['count']}</td>
+                </tr>
+            `
+
+        document.getElementById( 'table-content' ).innerHTML        = content
       })
     },
   }
@@ -60,7 +72,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .d-center {
   display: flex;
   justify-content: center;
